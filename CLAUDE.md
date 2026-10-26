@@ -3,6 +3,7 @@
 Decision-support tool: checks an institution's EoA application documents, verifies them with (mock) issuers, flags problems with evidence, scores risk, ranks inspections. **Read `BUILD_GUIDE.md` first** (features, stack, build order).
 
 ## Hard rules
+- Three roles only (institution, officer, inspector). No admin: rule packs, audit and reopen-once belong to the officer; the inspector records on-site verdicts.
 - The software never approves, rejects or penalises. No "reject" button. A flag decision (ACCEPT/DISMISS) needs a written reason.
 - Everything is synthetic. Every external system (SHCIL, DigiLocker, UDIN, fire/occupancy portals, AICTE records) is a MOCK and its responses carry `"mock": true`.
 - Forensic flags say "Preliminary indicator - requires human verification" and are weighted by confidence.
@@ -21,9 +22,9 @@ Decision-support tool: checks an institution's EoA application documents, verifi
 
 ## Frozen contracts (change = its own commit starting `contract:` and both agree)
 1. `rulepacks/schema.json` + pack layout
-2. `backend/app/models.py` (19 tables)
+2. `backend/app/models/` (19 tables)
 3. `contracts/openapi.json` (10 routers under `/api/v1`)
-4. `backend/app/schemas.py` (Flag, Fact, Verification, Risk ...)
+4. `backend/app/schemas/` (request/response shapes)
 
 After any API change: `python backend/scripts/export_openapi.py`, then `cd frontend && npm run gen:api`.
 
@@ -36,7 +37,7 @@ cd frontend && npm install && npm run dev
 python scripts/make_test_pki.py && python -W ignore scripts/generate_synthetic.py   # synthetic data -> data/synthetic (gitignored)
 pytest tests
 ```
-Demo logins (stub only): `officer@pramaan.test`, `inst-a@pramaan.test`, `inspector@pramaan.test`, `admin@pramaan.test`; password `Pramaan@2026`.
+Demo logins: `inst-a@pramaan.test`, `inst-b@pramaan.test`, `inst-c@pramaan.test`, `officer@pramaan.test`, `inspector@pramaan.test`; password `Pramaan@2026`. Three roles only: there is no admin.
 
 ## Style
 Smallest working change. Engines are pure functions `engine(context) -> list[Flag]`. Add a test that fails first. Log decisions in `DECISIONS.md`.
