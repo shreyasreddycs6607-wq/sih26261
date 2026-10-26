@@ -1,4 +1,4 @@
-# PramaanAI (SIH26261, AICTE)
+# TatvaAI (SIH26261, AICTE)
 
 Decision-support tool: checks an institution's EoA application documents, verifies them with (mock) issuers, flags problems with evidence, scores risk, ranks inspections. **Read `BUILD_GUIDE.md` first** (features, stack, build order).
 
@@ -37,7 +37,7 @@ cd frontend && npm install && npm run dev
 python scripts/make_test_pki.py && python -W ignore scripts/generate_synthetic.py   # synthetic data -> data/synthetic (gitignored)
 pytest tests
 ```
-Demo logins: `inst-a@pramaan.test`, `inst-b@pramaan.test`, `inst-c@pramaan.test`, `officer@pramaan.test`, `inspector@pramaan.test`; password `Pramaan@2026`. Three roles only: there is no admin.
+Demo logins: `inst-a@tatva.test`, `inst-b@tatva.test`, `inst-c@tatva.test`, `officer@tatva.test`, `inspector@tatva.test`; password `Tatva@2026`. Three roles only: there is no admin.
 
 ## Style
 Smallest working change. Engines are pure functions `engine(context) -> list[Flag]`. Add a test that fails first. Log decisions in `DECISIONS.md`.
