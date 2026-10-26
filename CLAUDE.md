@@ -33,6 +33,7 @@ pip install -r backend/requirements.txt
 uvicorn app.main:app --reload --port 8000 --app-dir backend
 uvicorn main:app --port 9000 --app-dir mock_issuers
 cd frontend && npm install && npm run dev
+python scripts/make_test_pki.py && python -W ignore scripts/generate_synthetic.py   # synthetic data -> data/synthetic (gitignored)
 pytest tests
 ```
 Demo logins (stub only): `officer@pramaan.test`, `inst-a@pramaan.test`, `inspector@pramaan.test`, `admin@pramaan.test`; password `Pramaan@2026`.
